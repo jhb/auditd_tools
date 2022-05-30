@@ -11,11 +11,15 @@ This collection of tools provides:
 - [Command line tools](#command-line-tools) to transform auditd events into more structured
   formats (and display them)
 
+If you want you can read some lines about the [background](#background) first.
+
 It all relies heavily on the work of Steve Grubb, e.g.
 
 - https://security-plus-data-science.blogspot.com/2017/06/using-auparse-in-python.html
 
 Also, a friend of mine was heavily involved.
+
+
 
 ## Status
 
