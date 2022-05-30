@@ -1,0 +1,26 @@
+## First rule - delete all
+-D
+
+# delete filters, because we are only interested in filesystem events
+# see https://access.redhat.com/solutions/35978
+-a never,exclude -F msgtype=USER_END
+-a never,exclude -F msgtype=USER_START
+-a never,exclude -F msgtype=LOGIN
+-a never,exclude -F msgtype=CRED_DISP
+-a never,exclude -F msgtype=USER_ACCT
+-a never,exclude -F msgtype=SERVICE_START
+-a never,exclude -F msgtype=SERVICE_STOP
+-a never,exclude -F msgtype=CRED_ACQ
+-a never,exclude -F msgtype=USER_AUTH
+-a never,exclude -F msgtype=CRED_REFR
+
+## Increase the buffers to survive stress events.
+## Make this bigger for busy systems
+-b 8192
+
+## This determine how long to wait in burst of events
+--backlog_wait_time 0
+
+## Set failure mode to syslog
+-f 1
+-w /home/joerg/tmp -p wa -k fsaction
