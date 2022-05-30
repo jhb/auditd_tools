@@ -19,7 +19,7 @@ Also, a friend of mine was heavily involved.
 
 ## Status
 
-This is pretty much alpha, but it seems to work. Don't really on it, better learn on it and give
+This is pretty much alpha, but it seems to work. Don't rely on it, better pick it apart and please give
 me feedback about my errors.
 
 ## Requirements
