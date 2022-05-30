@@ -2,9 +2,20 @@
 
 *Python tools to handle auditd events*
 
+Example: 
+```python
+from event_parser import AuditdEventParser
+import sys
+
+p = AuditdEventParser()
+for line in sys.stdin:
+    for event in p.parseline(line):
+        print(event['filepath'])
+```
+
 This collection of tools provides:
 
-- An [event_parser](#using-the-parser), which handles events emitted by `auparse`, and returns
+- An [event_parser](#using-the-parser) (see above), which handles events emitted by `auparse`, and returns
   python dicts representing these events.
 - An [example plugin](#using-the-plugin) for `audispd`, which writes out filesystem changes in a
   directory of choice to a logfile.
@@ -19,11 +30,10 @@ It all relies heavily on the work of Steve Grubb, e.g.
 
 Also, a friend of mine was heavily involved.
 
-
-
 ## Status
 
-This is pretty much alpha, but it seems to work. Don't rely on it, better pick it apart and please give
+This is pretty much alpha, but it seems to work. Don't rely on it, better pick it apart and please
+give
 me feedback about my errors.
 
 ## Requirements
@@ -126,12 +136,12 @@ Use
 
 to translate the events to python and have them pretty printed
 
-Use 
+Use
 
     sudo ausearch --start today --raw | ./jsonify_events.py -
-  
-to translate the events to json, and have them printed line by line ([jsonl](https://jsonlines.org/))
 
+to translate the events to json, and have them printed line by
+line ([jsonl](https://jsonlines.org/))
 
 ## Background
 
