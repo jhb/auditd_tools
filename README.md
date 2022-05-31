@@ -78,6 +78,8 @@ Copy and adapt the `audit.rules` (this might override existing rules, watch out)
     cd auditd_tools
     sudo cp audit.rules /etc/audit/rules.d
 
+(you could also write the rules to a separate file in that directory, see the [auditd documentation](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/sec-defining_audit_rules_and_controls#sec-Defining_Audit_Rules_and_Controls_in_the_audit.rules_file) for that)
+
 Make sure that the right directory is watched (e.g. replacing `/home/joerg/tmp`), and set the
 (event-)key to whatever you like. For more information on the exclusion of entries, read:
 
