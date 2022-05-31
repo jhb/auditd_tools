@@ -19,29 +19,35 @@ Check /var/log/syslog for errors.
 
 You can also use this directly, e.g. with
 
-  ausearch --start today --raw  | ./audisp_fsaction_plugin.py fsaction mylog.log
+  ausearch --start today --raw  | ./audisp_fsaction_plugin.py mylog.log fsaction
 
 This will make the plugin listen to "fsaction" events and write entries into mylog.log
+Use '-' as the logfile name to write to stdout.
 """
 
-
-import os
 import sys
+
 import event_parser
 
-if len(sys.argv) > 2:
-    filter_key = sys.argv[1]
-    logfile_name = sys.argv[2]
-else:
-    filter_key = 'fsaction'
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    logfile_name = os.path.join(dir_path, 'fsaction_plugin.log')
-print(logfile_name)
+if len(sys.argv) < 2:
+    print(f'call as {sys.argv[0]} <infile> [key]')
+    sys.exit()
+
+# output
+logfile_name = sys.argv[1]
+fp = sys.stdout if logfile_name == '-' else open(logfile_name)
+
+filters = dict(action=event_parser.file_actions)
+
+# key
+if len(sys.argv) == 3:
+    filters['key'] = sys.argv[2]
+
 parser = event_parser.AuditdEventParser()
 
-with open(logfile_name, 'a') as logfile:
-    for line in sys.stdin:
-        for event in parser.parseline(line, key=[filter_key], action=event_parser.file_actions):
-            if event['filepath']:
-                logfile.write(f"{event['action']:30}: {event['filepath']}\n")
-                logfile.flush()
+logfile = sys.stdout if logfile_name == '-' else open(logfile_name, 'a')
+for line in sys.stdin:
+    for event in parser.parseline(line, **filters):
+        if event['filepath']:
+            logfile.write(f"{event['action']:30}: {event['filepath']}\n")
+            logfile.flush()

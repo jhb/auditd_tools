@@ -147,9 +147,9 @@ line ([jsonl](https://jsonlines.org/))
 
 Use
 
-    sudo ausearch --start today --raw --key fsaction | ./fileaction_events.py -
+    sudo ausearch --start today --raw --key fsaction | ./audisp_fsaction_plugin.py -
 
-to print events as a list of file changes. You can provide an optional key as the second argument to `fileaction_events.py` if you haven't filtered for it already.
+to print events as a list of file changes. You can provide an optional key as the second argument to if you haven't filtered for it already in the input. (yes, this is the plugin)
 
 ## Background
 
