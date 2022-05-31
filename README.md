@@ -145,6 +145,12 @@ Use
 to translate the events to json, and have them printed line by
 line ([jsonl](https://jsonlines.org/))
 
+Use
+
+    sudo ausearch --start today --raw --key fsaction | ./fileaction_events.py -
+
+to print events as a list of file changes. You can provide an optional key as the second argument to `fileaction_events.py` if you haven't filtered for it already.
+
 ## Background
 
 My use case is to have a full-text search like spotlight in macOS. What is nice there is that
