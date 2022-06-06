@@ -12,7 +12,7 @@ ausearch --start today --raw  | ./pprint_events.py -
 import sys
 from pprint import pprint
 
-import event_parser
+from auditd_tools import event_parser
 
 p = event_parser.AuditdEventParser()
 filename = sys.argv[1] if len(sys.argv) > 1 else 'test.log'

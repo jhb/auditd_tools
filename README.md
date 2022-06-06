@@ -2,23 +2,24 @@
 
 *Python tools to handle auditd events*
 
-Example: 
+Example:
+
 ```python
-from event_parser import AuditdEventParser
+from auditd_tools.event_parser import AuditdEventParser
 import sys
 
 p = AuditdEventParser()
 for line in sys.stdin:
     for event in p.parseline(line):
-        print(event['action'])    #-> opened-file
-        print(event['filepath'])  #-> /home/joerg/tmp/hallo
-        print(event['datetime'])  #-> 2022-05-30 13:55:17.020000
+        print(event['action'])  # -> opened-file
+        print(event['filepath'])  # -> /home/joerg/tmp/hallo
+        print(event['datetime'])  # -> 2022-05-30 13:55:17.020000
 ```
 
 This collection of tools provides:
 
-- An [event_parser](#using-the-parser) (see above), which handles events emitted by `auparse`, and returns
-  python dicts representing these events.
+- An [event_parser](#using-the-parser) (see above), which handles events emitted by `auparse`, and
+  returns python dicts representing these events.
 - An [example plugin](#using-the-plugin) for `audispd`, which writes out filesystem changes in a
   directory of choice to a logfile.
 - [Command line tools](#command-line-tools) to transform auditd events into more structured
@@ -67,18 +68,25 @@ might return a list of events or `None`. The events have the following structure
 
 ## Using the plugin
 
-Checkout this repo:
+Install the package:
+
+    pip install auditd_tools
+
+(You might want to do this using the system python, or use a virtualenv, and then adapt the plugin
+file to show to that virtualenv python)
+
+You also need the script files:
 
     git clone https://github.com/jhb/auditd_tools.git
-
-(proper setup via pypi will follow)
 
 Copy and adapt the `audit.rules` (this might override existing rules, watch out):
 
     cd auditd_tools
     sudo cp audit.rules /etc/audit/rules.d
 
-(you could also write the rules to a separate file in that directory, see the [auditd documentation](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/sec-defining_audit_rules_and_controls#sec-Defining_Audit_Rules_and_Controls_in_the_audit.rules_file) for that)
+(you could also write the rules to a separate file in that directory, see
+the [auditd documentation](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/sec-defining_audit_rules_and_controls#sec-Defining_Audit_Rules_and_Controls_in_the_audit.rules_file)
+for that)
 
 Make sure that the right directory is watched (e.g. replacing `/home/joerg/tmp`), and set the
 (event-)key to whatever you like. For more information on the exclusion of entries, read:
@@ -151,7 +159,8 @@ Use
 
     sudo ausearch --start today --raw --key fsaction | ./audisp_fsaction_plugin.py -
 
-to print events as a list of file changes. You can provide an optional key as the second argument to if you haven't filtered for it already in the input. (yes, this is the plugin)
+to print events as a list of file changes. You can provide an optional key as the second argument to
+if you haven't filtered for it already in the input. (yes, this is the plugin)
 
 ## Background
 

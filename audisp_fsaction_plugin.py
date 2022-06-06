@@ -26,8 +26,7 @@ Use '-' as the logfile name to write to stdout.
 """
 
 import sys
-
-import event_parser
+from auditd_tools import event_parser
 
 if len(sys.argv) < 2:
     print(f'call as {sys.argv[0]} <infile> [key]')
@@ -35,7 +34,6 @@ if len(sys.argv) < 2:
 
 # output
 logfile_name = sys.argv[1]
-fp = sys.stdout if logfile_name == '-' else open(logfile_name)
 
 filters = dict(action=event_parser.file_actions)
 

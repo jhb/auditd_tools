@@ -13,7 +13,7 @@ ausearch --start today --raw  | ./jsonify_events.py -
 import json
 import sys
 
-import event_parser
+from auditd_tools import event_parser
 
 p = event_parser.AuditdEventParser()
 
