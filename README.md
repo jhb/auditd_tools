@@ -47,7 +47,7 @@ You need to install some packages for your distro:
 
 ## Using the parser
 
-The parser lives in [event_parser.py](event_parser.py)
+The parser lives in [event_parser.py](src/auditd_tools/event_parser.py)
 
 The [command line tools](#command-line-tools) section give examples of how to use the parser.
 Generally speaking, you will feed line by line of input to `AuditdEventParser.parse_line`, which
@@ -70,7 +70,7 @@ might return a list of events or `None`. The events have the following structure
 
 Install the package:
 
-    pip install auditd_tools
+    pip3 install auditd_tools
 
 (You might want to do this using the system python, or use a virtualenv, and then adapt the plugin
 file to show to that virtualenv python)
@@ -82,7 +82,7 @@ You also need the script files:
 Copy and adapt the `audit.rules` (this might override existing rules, watch out):
 
     cd auditd_tools
-    sudo cp audit.rules /etc/audit/rules.d
+    sudo cp examples/audit.rules /etc/audit/rules.d
 
 (you could also write the rules to a separate file in that directory, see
 the [auditd documentation](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/sec-defining_audit_rules_and_controls#sec-Defining_Audit_Rules_and_Controls_in_the_audit.rules_file)
@@ -102,7 +102,7 @@ And adapt the file, especially the paths to the plugin and the logfile.
 
 Make sure the actual plugin is owned by root:
 
-    sudo chown root auditd_tools/audisp_fs_action_plugin.py
+    sudo chown root auditd_tools/examples/audisp_fs_action_plugin.py
 
 Restart the server:
 
@@ -129,7 +129,7 @@ auditd.service - Security Auditing Service
      CGroup: /system.slice/auditd.service
              ├─367279 /sbin/auditd
              ├─367281 /sbin/audispd
-             └─367283 python3 /home/joerg/projects/audit/auditd_tools/audisp_fsaction_plugin.py fsaction /home/joerg/projects/audit/fsaction_plugin.log
+             └─367283 python3 /home/joerg/projects/audit/auditd_tools/examples/audisp_fsaction_plugin.py fsaction /home/joerg/projects/audit/fsaction_plugin.log
 
 ```
 
@@ -144,20 +144,20 @@ Now, if you e.g. `echo 'foo' > bar` in your directory, it should show up in the 
 
 Use
 
-    sudo ausearch --start today --raw | ./pprint_events.py -
+    sudo ausearch --start today --raw | ./examples/pprint_events.py -
 
 to translate the events to python and have them pretty printed
 
 Use
 
-    sudo ausearch --start today --raw | ./jsonify_events.py -
+    sudo ausearch --start today --raw | ./examples/jsonify_events.py -
 
 to translate the events to json, and have them printed line by
 line ([jsonl](https://jsonlines.org/))
 
 Use
 
-    sudo ausearch --start today --raw --key fsaction | ./audisp_fsaction_plugin.py -
+    sudo ausearch --start today --raw --key fsaction | ./examples/audisp_fsaction_plugin.py -
 
 to print events as a list of file changes. You can provide an optional key as the second argument to
 if you haven't filtered for it already in the input. (yes, this is the plugin)
