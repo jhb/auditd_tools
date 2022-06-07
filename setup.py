@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="auditd-tools",
-    version="0.0.2",
+    version="0.0.3",
     author="Joerg Baach",
     author_email="mail@baach.de",
     description="Python tools to handle auditd events",
@@ -21,7 +21,7 @@ setuptools.setup(
     ],
     install_requires=[],
     extras_require = {},
-    package_dir={'':'src'},
-    packages=setuptools.find_packages(where="src"),
+    package_dir={'':'.'},
+    packages=setuptools.find_packages(where="."),
     python_requires=">=3.6",
 )

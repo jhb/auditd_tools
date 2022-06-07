@@ -24,13 +24,8 @@ You can also use this directly, e.g. with
 This will make the plugin listen to "fsaction" events and write entries into mylog.log
 Use '-' as the logfile name to write to stdout.
 """
-import syslog
 import sys
-sys.path.append(f'/usr/local/lib/python3.{sys.version_info[1]}/dist-packages')
-try:
-    from auditd_tools import event_parser
-except Exception as e:
-    syslog.syslog(str(e))
+from auditd_tools import event_parser
 
 if len(sys.argv) < 2:
     print(f'call as {sys.argv[0]} <infile> [key]')
