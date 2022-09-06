@@ -49,7 +49,7 @@ You need to install some packages for your distro:
 
 The package can be installed using pip:
 ```bash
-pip install auditd_plugins
+pip install auditd_tools
 ```
 Then you can use it along these lines:
 
